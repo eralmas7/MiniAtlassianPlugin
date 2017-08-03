@@ -31,6 +31,7 @@ public class JiraResponseConverter implements Converter {
       responseData.setIssueId(entry.getKey().toString());
       responseData.setSummary(problemDetails.getAndRemoveValue(Constants.JIRA_SUMMARY).toString());
       responseData.setIssueType(problemDetails.getAndRemoveValue(Constants.JIRA_TYPE).toString());
+      responseData.setIssueName(problemDetails.getAndRemoveValue(Constants.JIRA_URL).toString());
       responseData
           .setProblems(problemDetails.getAllViolations(System.getProperty("line.separator")));
       responseData

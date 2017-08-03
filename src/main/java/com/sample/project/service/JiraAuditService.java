@@ -100,7 +100,7 @@ public class JiraAuditService implements AuditService {
       for (Field field : fieldIterable)
         problemDetails.putFieldNameValue(field.getName(), field.getValue());
       problemDetails.putFieldNameValue(Constants.JIRA_DESCRIPTION, issue.getDescription());
-      problemDetails.putFieldNameValue("issueName", jiraUrl + jiraId);
+      problemDetails.putFieldNameValue(Constants.JIRA_URL, jiraUrl + jiraId);
       problemDetails.putFieldNameValue(Constants.ASSIGNEE,
           issue.getAssignee() == null ? StringUtils.EMPTY : issue.getAssignee().getDisplayName());
       problemDetails.putFieldNameValue(Constants.JIRA_SUMMARY, issue.getSummary());
