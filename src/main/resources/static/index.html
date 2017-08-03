@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="jiraApp">
+	<head lang="en">
+	    <meta charset="UTF-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <title>Jira Checker</title>
+	    
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-resource.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		
+	    <script type="text/javascript" src="js/app.js"></script>
+	    <script type="text/javascript" src="js/controllers.js"></script>
+	    <script type="text/javascript" src="js/directives.js"></script>
+	    <script type="text/javascript" src="js/services.js"></script>
+	 
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    	<link rel="stylesheet" type="text/css" href="css/app.css"/>
+	 
+	</head>
+	
+	<body ng-controller="jiraDetailsController">
+	    
+	    <nav class="navbar navbar-default" role="navigation">
+	        <div class="container-fluid">
+	            <div class="navbar-header">
+	                <h2>Jira Checker</h2>
+	            </div>
+	        </div>
+    	</nav>
+	    
+	    <form class="form-horizontal" role="form" ng-submit="getJiraDetails()" method="post" name="jiraForm">
+			<div class="form-group">
+			  <label for="name" class="col-sm-2 control-label">Sprint Id: </label>
+			  <div class="col-sm-10">
+			    <input type="text" ng-model="sprintId" class="form-control" id="sprintId" name="sprintId" ng-maxlength="10" placeholder="sprintId Here" required/>
+			    <span class="help-block"
+			     ng-show="jiraForm.sprintId.$error.required && jiraForm.sprintId.$dirty">
+			     sprintId is required
+			    </span>
+			  </div>
+			</div>
+			<div class="form-group">
+			  <label for="name" class="col-sm-2 control-label">Project Name: </label>
+			  <div class="col-sm-10">
+			    <input type="text" ng-model="projectName" class="form-control" id="projectName" name="projectName" value="" ng-maxlength="20" placeholder="projectName Here"/>
+			  </div>
+			</div>
+			<div class="form-group">
+			  <label for="name" class="col-sm-2 control-label">Misc Id: </label>
+			  <div class="col-sm-10">
+			    <input type="text" ng-model="miscQuery" class="form-control" id="miscQuery" name="miscQuery" placeholder="Jira query Here"/>
+			  </div>
+			</div>			
+			<div class="col-md-6 col-md-offset-2">
+			  <button type="submit" class="btn btn-primary btn-md col-md-5" ng-disabled="jiraForm.$invalid">Submit</button>
+			  <button type="reset" class="btn btn-warning btn-md col-md-5">Reset</button>
+			</div>
+		</form>
+		<br/>
+		<div class="spinner" ng-show="loadingCrawler == true">
+			<br/>
+			<i align="center">Loading....</i>
+		</div>
+		<div class="container" ng-show="serverResponse != null && serverResponse.data != null && serverResponse.data.message == null && loadingCrawler == false" ng-include="'partials/_outputTable.html'"></div>
+		<div class="container" ng-show="serverResponse != null && serverResponse.data != null && serverResponse.data.message != null && loadingCrawler == false" ng-include="'partials/_errorTable.html'"></div>
+	</body>
+</html>

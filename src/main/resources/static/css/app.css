@@ -1,0 +1,30 @@
+.top-buffer{
+    margin-top:10px;
+}
+
+.jiraTable tr td:nth-child(2){
+    width: 150px;
+}
+
+.jiraTable tr:nth-child(1) td{
+    border-top: none;
+}
+a.nodecoration{
+    text-decoration:none;
+}
+.exampleH4 {
+	color: gray;
+}
+
+.jiraHr {
+	margin-top: 0px;
+}
+
+.help-block {
+	color: red;
+}
+
+.red {
+	border-width: 5px;
+	border-color: red;
+}
