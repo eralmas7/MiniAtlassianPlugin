@@ -18,6 +18,9 @@ public class ResponseData {
   private String reporter;
   private String summary;
   private String peerReviewer;
+  private String labels;
+  private boolean isLabelPresent;
+  private boolean isStatusCorrect;
 
   public ResponseData() {
   }
@@ -116,6 +119,30 @@ public class ResponseData {
 
   public void setWarningCount(int warningCount) {
     this.warningCount = warningCount;
+  }
+
+  public String getLabels() {
+    return labels;
+  }
+
+  public void setLabels(String labels) {
+    this.labels = labels;
+  }
+
+  public boolean isLabelPresent() {
+    return isLabelPresent;
+  }
+
+  public void setLabelPresent(boolean isLabelPresent) {
+    this.isLabelPresent = isLabelPresent;
+  }
+
+  public boolean isStatusCorrect() {
+    return isStatusCorrect;
+  }
+
+  public void setStatusCorrect(boolean isStatusCorrect) {
+    this.isStatusCorrect = isStatusCorrect;
   }
 
   @Override

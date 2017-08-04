@@ -39,6 +39,11 @@ public class JiraResponseConverter implements Converter {
       responseData
           .setPeerReviewer(problemDetails.getAndRemoveValue(Constants.JIRA_REVIEWER).toString());
       responseData.setStatus(problemDetails.getAndRemoveValue(Constants.JIRA_STATUS).toString());
+      responseData.setLabels(problemDetails.getAndRemoveValue(Constants.JIRA_LABEL).toString());
+      responseData.setLabelPresent(!Boolean.FALSE.toString()
+          .equals(problemDetails.getAndRemoveValue(Constants.IS_JIRA_LABEL_VALID).toString()));
+      responseData.setStatusCorrect(!Boolean.FALSE.toString()
+          .equals(problemDetails.getAndRemoveValue(Constants.IS_JIRA_STATUS_VALID).toString()));
       problemDetails.retainValues(jiraFields);
       responseData.setSpecificFields(problemDetails.getAllFields());
       responses.add(responseData);

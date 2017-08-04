@@ -30,10 +30,11 @@ public class JiraAuditControllerTest {
     parameters.put("sprintId", "1");
     // Act
     final JiraViolationResponse responseData = restTemplate.getForObject(
-        "/rest/agile/1.0?sprintId={sprintId}&projectName=''&miscQuery=''",
-        JiraViolationResponse.class, parameters);
+        "/rest/agile/1.0?sprintId={sprintId}&projectName=&miscQuery=", JiraViolationResponse.class,
+        parameters);
     // Assert
-    assertThat(responseData.getTotalIssuesUnderViolation()).isEqualTo(0);
+    assertThat(responseData.getTotalIssuesUnderViolation()).isEqualTo(4);
+    assertThat(responseData.getResponseDataList().size()).isEqualTo(4);
   }
 
   @Test
@@ -43,37 +44,25 @@ public class JiraAuditControllerTest {
     parameters.put("sprintId", "102020");
     // Act
     final ExceptionData exceptionData = restTemplate.getForObject(
-        "/rest/agile/1.0?sprintId={sprintId}&projectName=''&miscQuery=''", ExceptionData.class,
+        "/rest/agile/1.0?sprintId={sprintId}&projectName=&miscQuery=", ExceptionData.class,
         parameters);
     // Assert
-    assertThat(exceptionData.getErrorCode()).isEqualTo(500);
+    assertThat(exceptionData.getErrorCode()).isEqualTo(400);
   }
 
   @Test
-  public void givenEmptyUrl_whenCrawlApiIsCalled_ReturnsException() throws Exception {
-    // Arrange
-    final Map<String, String> parameters = new HashMap<>();
-    parameters.put("sprintId", "");
-    // Act
-    final ExceptionData exceptionData = restTemplate.getForObject(
-        "/rest/agile/1.0?sprintId={sprintId}&projectName=''&miscQuery=''", ExceptionData.class,
-        parameters);
-    // Assert
-    assertThat(exceptionData.getErrorCode()).isEqualTo(500);
-  }
-
-  @Test
-  public void givenInvalidProject_whenCrawlApiIsCalled_ReturnsException() throws Exception {
+  public void givenInvalidProject_whenJiraViolationRestIsCalled_ReturnsException()
+      throws Exception {
     // Arrange
     final Map<String, String> parameters = new HashMap<>();
     parameters.put("sprintId", "1");
     parameters.put("projectName", "NoIdea");
     // Act
     final ExceptionData exceptionData = restTemplate.getForObject(
-        "/rest/agile/1.0?sprintId={sprintId}&projectName={projectName}&miscQuery=''",
+        "/rest/agile/1.0?sprintId={sprintId}&projectName={projectName}&miscQuery=",
         ExceptionData.class, parameters);
     // Assert
-    assertThat(exceptionData.getErrorCode()).isEqualTo(500);
+    assertThat(exceptionData.getErrorCode()).isEqualTo(400);
   }
 
 }

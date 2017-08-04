@@ -13,19 +13,21 @@
 		<th>Technical Specification</th>
 		<th>UAT Test Results</th>
 		<th>Functional Specification</th>
+		<th>Label</th>
 	</tr>
 	<tr ng-repeat="jiraData in serverResponse.data.responseDataList">
 		<td ng-class="{'red' : jiraData.warningCount > 0}"><a href="{{jiraData.issueName}}" title="{{jiraData.warningCount}} issues found.
 {{jiraData.problems}}">{{jiraData.issueId}}</a></td>
 		<td>{{jiraData.issueType}}</td>
 		<td ng-class="{'red' : (!jiraData.assignee)}">{{jiraData.assignee}}</td>
-		<td ng-class="{'red' : (jiraData.status != 'Done')}">{{jiraData.status}}</td>
+		<td ng-class="{'red' : (!jiraData.statusCorrect)}">{{jiraData.status}}</td>
 		<td ng-class="{'red' : (!jiraData.description)}">{{jiraData.description}}</td>
-		<td>{{jiraData.reported}}</td>
+		<td>{{jiraData.reporter}}</td>
 		<td ng-class="{'red' : (!jiraData.summary)}">{{jiraData.summary}}</td>
 		<td ng-class="{'red' : (!jiraData.peerReviewer)}">{{jiraData.peerReviewer}}</td>
 		<td ng-class="{'red' : (!jiraData.specificFields['Technical Specification'])}">{{jiraData.specificFields['Technical Specification']}}</td>
 		<td ng-class="{'red' : (!jiraData.specificFields['UAT Test Results'])}">{{jiraData.specificFields['UAT Test Results']}}</td>
 		<td ng-class="{'red' : (!jiraData.specificFields['Functional Specification'])}">{{jiraData.specificFields['Functional Specification']}}</td>
+		<td ng-class="{'red' : (!jiraData.labelPresent)}">{{jiraData.labels}}</td>
 	</tr>
 </table>

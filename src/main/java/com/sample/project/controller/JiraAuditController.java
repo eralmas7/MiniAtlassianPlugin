@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.atlassian.jira.rest.client.RestClientException;
 import com.sample.project.exception.InvalidAddressException;
 import com.sample.project.model.ExceptionData;
 import com.sample.project.model.JiraViolationResponse;
@@ -59,7 +60,20 @@ public class JiraAuditController {
   }
 
   /**
-   * Handle any other exception till the evaluation of a web address.
+   * Handle any rest exception from jira service.
+   * @param exception
+   * @return
+   */
+  @ResponseBody
+  @ExceptionHandler(RestClientException.class)
+  @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+  public ExceptionData handleRestException(final Exception exception) {
+    return new ExceptionData(exception.getMessage(), HttpStatus.BAD_REQUEST.value(),
+        exception.toString());
+  }
+
+  /**
+   * Handle any other exception.
    * @param exception
    * @return
    */

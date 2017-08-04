@@ -30,6 +30,7 @@ Instructions to build and run the application.
 	
 ##### To build the application:
   	- Download the solution to a directory and unzip it into MiniAtlassianPlugin folder.
+  	- Change the URL and credentials of Jira dashboard in application.properties.
   	- Once done, you could create executable jar using "mvn clean package"
   	- Once done, you should be able to run the application using "java -jar target/*.jar"
   	
@@ -57,4 +58,6 @@ Instructions to build and run the application.
 #### Assumptions:
 	1. Team are following agile.
 	2. We could slice and dice the data later so we could see how many issues are violating norms based on user for e.g.
-	3. Later we can extend UI to hide/show certain fields. At the moment it shows all the fields configured using application.properties.
+	3. We can extend UI to hide/show certain fields. It's currently a bespoke dashboard with additional fields (In addition to what's default by Atlassian) 
+	4. All mandatory fields and labels can be defined in application.properties.
+	5. To make it usable for your jira service, please change the jira url along with credentials in application.properties. Jira dashboard that i used is trail one which is due to expire on 5th August 2017.

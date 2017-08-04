@@ -65,6 +65,7 @@ public class JiraAuditService implements AuditService {
           ProblemDetails problemDetails = jiraProblemDetailsMap.compute(jiraId,
               (k, v) -> v == null ? new ProblemDetails() : v);
           problemDetails.addViolation(String.format("Doesn't have %s label.", label));
+          problemDetails.putFieldNameValue(Constants.IS_JIRA_LABEL_VALID, Boolean.FALSE);
         }
       }
     }
@@ -77,6 +78,7 @@ public class JiraAuditService implements AuditService {
       for (String string : FIELDS_TO_EXTRACT) {
         if (!problemDetails.containsKeyAndValue(string)) {
           problemDetails.addViolation(String.format("%s field can't be empty", string));
+          problemDetails.putFieldNameValue(Constants.IS_JIRA_STATUS_VALID, Boolean.FALSE);
         }
       }
 
@@ -110,6 +112,8 @@ public class JiraAuditService implements AuditService {
           extractName(problemDetails.getAndRemoveValue(Constants.JIRA_REVIEWER)));
       problemDetails.putFieldNameValue(Constants.JIRA_REPORTER,
           issue.getReporter().getDisplayName());
+      problemDetails.putFieldNameValue(Constants.JIRA_LABEL,
+          StringUtils.join(issue.getLabels(), ","));
     }
 
   }
